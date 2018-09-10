@@ -1,7 +1,7 @@
 # JFFoundation
 
 [![CI Status](https://img.shields.io/travis/jumpingfrog0/JFFoundation.svg?style=flat)](https://travis-ci.org/jumpingfrog0/JFFoundation)
-[![Version](https://img.shields.io/cocoapods/v/JFFoundation.svg?style=flat)](https://cocoapods.org/pods/JFFoundation)
+[![Version](https://img.shields.io/cocoapods/v/JFFoundation.svg?style=flat&colorB=blue)](https://cocoapods.org/pods/JFFoundation)
 [![License](https://img.shields.io/cocoapods/l/JFFoundation.svg?style=flat)](https://cocoapods.org/pods/JFFoundation)
 [![Platform](https://img.shields.io/cocoapods/p/JFFoundation.svg?style=flat)](https://cocoapods.org/pods/JFFoundation)
 
