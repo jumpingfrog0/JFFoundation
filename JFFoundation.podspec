@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
   s.homepage         = 'https://github.com/jumpingfrog0/JFFoundation'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'jumpingfrog0' => 'jumpingfrog0@gmail.com' }
-  s.source           = { :git => 'git@github.com:jumpingfrog0/JFFoundation.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/jumpingfrog0/JFFoundation.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
 
