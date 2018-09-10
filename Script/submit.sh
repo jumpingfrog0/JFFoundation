@@ -37,4 +37,4 @@ git tag -d $VERSION
 git tag $VERSION -m "tag: $VERSION"
 git push --force origin refs/tags/$VERSION:refs/tags/$VERSION
 
-pod trunk push --allow-warnings --verbose
+pod trunk push $POD_SPEC --allow-warnings --verbose
