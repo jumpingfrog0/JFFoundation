@@ -1,6 +1,6 @@
 #! /bin/bash
 
-PROJ=""
+PROJ="JFFoundation"
 POD_SPEC="${PROJ}.podspec"
 POD_REPO="xspecs"
 VERSION=$1
