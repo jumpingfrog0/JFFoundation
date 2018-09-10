@@ -2,7 +2,7 @@
 
 PROJ="JFFoundation"
 POD_SPEC="${PROJ}.podspec"
-POD_REPO="xspecs"
+POD_REPO="master"
 VERSION=$1
 COMPANY="jumpingfrog0"
 
@@ -37,4 +37,4 @@ git tag -d $VERSION
 git tag $VERSION -m "tag: $VERSION"
 git push --tags
 
-pod repo push $POD_REPO $POD_SPEC --allow-warnings --verbose --sources=$POD_REPO,master
+pod repo push $POD_REPO $POD_SPEC --allow-warnings --verbose --sources=$POD_REPO
