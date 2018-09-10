@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'JFFoundation_Example' do
+  pod 'JFFoundation', :path => '../'
+
+  target 'JFFoundation_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
