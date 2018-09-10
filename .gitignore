@@ -19,6 +19,7 @@ DerivedData/
 xcuserdata/
 
 # xcshareddata
+*/*.xcodeproj/xcshareddata/
 */*.xcodeproj/project.xcworkspace/xcshareddata/
 *.xcodeproj/project.xcworkspace/xcshareddata/
 */*.xcworkspace/xcshareddata/
