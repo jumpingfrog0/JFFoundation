@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'JFFoundation'
-  s.version          = '0.2.0'
+  s.version          = '0.2.1'
   s.summary          = 'Cocoa Foundation framework categories.'
 
 # This description is used to generate tags and improve search results.
