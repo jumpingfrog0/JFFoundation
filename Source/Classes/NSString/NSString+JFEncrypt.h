@@ -28,7 +28,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSString (MZDEncrypt)
+@interface NSString (JFEncrypt)
 
 /**
  *  计算字符串占用字节数

@@ -30,7 +30,7 @@
 #import <CommonCrypto/CommonDigest.h>
 #import <CommonCrypto/CommonHMAC.h>
 
-@implementation NSString (MZDEncrypt)
+@implementation NSString (JFEncrypt)
 
 - (NSInteger)jf_bytes
 {

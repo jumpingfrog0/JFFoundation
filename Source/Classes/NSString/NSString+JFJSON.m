@@ -41,7 +41,7 @@
     id jsonObject = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     
     if (error) {
-        NSException *e = [NSException exceptionWithName:@"MZD JSONParser Error" reason:error.localizedDescription userInfo:nil];
+        NSException *e = [NSException exceptionWithName:@"JSONParser Error" reason:error.localizedDescription userInfo:nil];
         [e raise];
     }
     
@@ -58,7 +58,7 @@
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object options:NSJSONWritingPrettyPrinted error:&error];
     
     if (error) {
-        NSException *e = [NSException exceptionWithName:@"MZD JSONParser Error" reason:error.localizedDescription userInfo:nil];
+        NSException *e = [NSException exceptionWithName:@"JSONParser Error" reason:error.localizedDescription userInfo:nil];
         [e raise];
     }
     

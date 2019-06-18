@@ -12,5 +12,5 @@
  *
  *  @return 序列化后的 json string，转换失败返回 nil
  */
-- (NSString *)mzd_JSONString;
+- (NSString *)jf_JSONString;
 @end

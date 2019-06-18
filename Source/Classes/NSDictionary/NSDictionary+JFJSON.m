@@ -7,7 +7,7 @@
 #import "NSDictionary+JFJSON.h"
 
 @implementation NSDictionary (JFJSON)
-- (NSString *)mzd_JSONString
+- (NSString *)jf_JSONString
 {
     if (!self) {
         return nil;
