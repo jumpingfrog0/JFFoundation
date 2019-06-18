@@ -31,5 +31,7 @@
 
 #import "NSDictionary+JFExtension.h"
 #import "NSDictionary+JFURL.h"
+#import "NSDictionary+JFJSON.h"
+#import "NSDictionary+JFLog.h"
 
 #endif /* NSDictionary_JF_h */

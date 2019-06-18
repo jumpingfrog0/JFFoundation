@@ -28,6 +28,7 @@
 #ifndef JFFoundation_h
 #define JFFoundation_h
 
+#import "LogMacro.h"
 #import "NSArray+JF.h"
 #import "NSCalendar+JFExtension.h"
 #import "NSData+JF.h"
