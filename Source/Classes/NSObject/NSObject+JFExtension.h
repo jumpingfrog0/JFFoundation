@@ -29,5 +29,5 @@
 #import <Foundation/Foundation.h>
 
 @interface NSObject (JFExtension)
-- (id)jf_performSelector:(SEL)selector withObjects:(NSArray *)objects;
+- (id)jf_performSelector:(SEL)sel withObjects:(NSArray *)objects;
 @end
