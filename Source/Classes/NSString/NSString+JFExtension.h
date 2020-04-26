@@ -48,4 +48,9 @@
  * @param regular 正则表达式
  */
 - (NSMutableArray *)jf_subStringByRegular:(NSString *)regular;
+
+/**
+ * 计算字符串真实长度，一个emoji长度为1
+ */
+- (NSInteger)jf_realLength;
 @end

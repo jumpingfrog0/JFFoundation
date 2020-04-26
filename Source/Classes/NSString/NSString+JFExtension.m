@@ -140,4 +140,17 @@
     }
     return array;
 }
+
+#pragma mark -
+
+- (NSInteger)jf_realLength
+{
+    __block NSInteger length = 0;
+    [self enumerateSubstringsInRange:NSMakeRange(0, [self length])
+                               options:NSStringEnumerationByComposedCharacterSequences
+                            usingBlock:^(NSString *substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop) {
+        length++;
+    }];
+    return length;
+}
 @end
