@@ -29,6 +29,7 @@
 #define JFFoundation_h
 
 #import "LogMacro.h"
+#import "JFFoundationMacro.h"
 #import "NSArray+JF.h"
 #import "NSCalendar+JFExtension.h"
 #import "NSData+JF.h"
@@ -42,3 +43,7 @@
 #import "NSURL+JF.h"
 
 #endif /* JFFoundation_h */
+
+/**
+ todo: NSPointerArray+MEAbstractionHelpers
+ */

@@ -78,6 +78,10 @@ Pod::Spec.new do |s|
   	ss.source_files = 'Source/Classes/NSString/*.{h,m}'
   end
 
+  s.subspec 'NSPointerArray' do |ss|
+  	ss.source_files = 'Source/Classes/NSPointerArray/*.{h,m}'
+  end
+
   s.subspec 'NSURL' do |ss|
   	ss.source_files = 'Source/Classes/NSURL/*.{h,m}'
 	ss.dependency 'JFFoundation/NSDictionary'
