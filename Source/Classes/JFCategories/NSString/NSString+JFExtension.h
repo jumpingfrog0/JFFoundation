@@ -33,11 +33,9 @@
 
 + (NSString *)jf_parseString:(NSString*)string separatorIndexs:(NSArray *)indexs separator:(NSString *)separator;
 
-- (CGFloat)jf_fitsWidthWithFont:(UIFont *)font height:(CGFloat)height;
-
-- (CGFloat)jf_fitsHeightWithFont:(UIFont *)font width:(CGFloat)width;
-
-- (CGFloat)jf_fitsHeightWithFont:(UIFont *)font size:(CGSize)size;
+- (CGSize)jf_safeSizeWithFont:(UIFont *)font;
+- (CGSize)jf_safeSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size;
+- (CGSize)jf_safeSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)lineBreakMode;
 
 + (NSString *)jf_zodiacSignWithMonth:(NSInteger)month day:(NSInteger)day;
 + (NSString *)jf_zodiacSignWithTs:(NSTimeInterval)ts;
@@ -53,4 +51,21 @@
  * 计算字符串真实长度，一个emoji长度为1
  */
 - (NSInteger)jf_realLength;
+
+- (NSString *)jf_trim;
+
+
+/// 截取字符串，末尾会加省略号
+/// - Parameter length: 长度
+- (NSString *)jf_stringByTruncatingToLength:(NSUInteger)length;
+
+
+/// 截取字符串，末尾是否加省略号
+/// - Parameters:
+///   - length: 长度
+///   - ellipsis: 是否加省略号
+- (NSString *)jf_stringByTruncatingToLength:(NSUInteger)length ellipsis:(BOOL)ellipsis;
+
+- (NSString *)jf_filterXMLEscapeChar;
+
 @end

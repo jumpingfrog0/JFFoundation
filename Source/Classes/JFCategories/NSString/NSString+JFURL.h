@@ -52,4 +52,5 @@
 - (NSString *)jf_URLStringByAppendingQueryString:(NSString *)queryString;
 
 - (NSURL *)jf_URLByAppendingQueryString:(NSString *)queryString;
+
 @end

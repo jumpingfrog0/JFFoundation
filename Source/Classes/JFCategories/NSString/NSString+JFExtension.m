@@ -27,6 +27,7 @@
 //
 
 #import "NSString+JFExtension.h"
+#import "JFFloatUtils.h"
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (JFExtension)
@@ -41,56 +42,39 @@
     return  mStr;
 }
 
-- (CGFloat)jf_fitsWidthWithFont:(UIFont *)font height:(CGFloat)height
-{
-    CGSize constraintSize = CGSizeMake(MAXFLOAT, height);
-    CGSize realSize;
-    if (!font) {
-        font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-    }
-    NSDictionary *attribute = @{NSFontAttributeName: font};
-    realSize                = [self boundingRectWithSize:constraintSize
-                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                              attributes:attribute
-                                                 context:nil]
-    .size;
-    return ceilf(realSize.width);
+- (CGSize)jf_safeSizeWithFont:(UIFont *)font {
+    return [self jf_safeSizeWithFont:font
+                   constrainedToSize:CGSizeMake(MAXFLOAT, MAXFLOAT)
+                       lineBreakMode:NSLineBreakByCharWrapping];
 }
 
-- (CGFloat)jf_fitsHeightWithFont:(UIFont *)font width:(CGFloat)width
-{
-    CGSize constraintSize = CGSizeMake(width, MAXFLOAT);
-    CGSize realSize;
-    if (!font) {
-        font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
-    }
-    NSDictionary *attribute = @{NSFontAttributeName: font};
-    realSize                = [self boundingRectWithSize:constraintSize
-                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                              attributes:attribute
-                                                 context:nil]
-    .size;
-    return ceilf(realSize.height);
+- (CGSize)jf_safeSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size {
+    return [self jf_safeSizeWithFont:font
+                   constrainedToSize:size
+                       lineBreakMode:NSLineBreakByCharWrapping];
 }
 
-- (CGFloat)jf_fitsHeightWithFont:(UIFont *)font size:(CGSize)size
-{
-    CGSize realSize;
-    if (!font) {
-        font = [UIFont systemFontOfSize:[UIFont systemFontSize]];
+- (CGSize)jf_safeSizeWithFont:(UIFont *)font constrainedToSize:(CGSize)size lineBreakMode:(NSLineBreakMode)lineBreakMode {
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = lineBreakMode;
+    
+    NSDictionary *attributes = @{NSFontAttributeName:font};
+    if (lineBreakMode != NSLineBreakByCharWrapping) {
+        attributes = @{NSFontAttributeName:font, NSParagraphStyleAttributeName:paragraphStyle};
     }
-    NSDictionary *attribute = @{NSFontAttributeName: font};
-    realSize                = [self boundingRectWithSize:size
-                                                 options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
-                                              attributes:attribute
-                                                 context:nil]
-    .size;
-    return ceilf(realSize.height);
+    CGRect boundingRect = [self boundingRectWithSize:size
+                                               options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                                            attributes:attributes
+                                             context:nil];
+    if (!JF_IS_NORMAL(boundingRect.size.width) || !JF_IS_NORMAL(boundingRect.size.height)) {
+        return CGSizeMake(0, 0);
+    }
+    return CGSizeMake(ceilf(boundingRect.size.width), ceilf(boundingRect.size.height));
 }
 
 #pragma mark - 星座
-+ (NSString *)jf_zodiacSignWithMonth:(NSInteger)m day:(NSInteger)d
-{
+
++ (NSString *)jf_zodiacSignWithMonth:(NSInteger)m day:(NSInteger)d {
     NSString *zodiacString = @"魔羯水瓶双鱼白羊金牛双子巨蟹狮子处女天秤天蝎射手魔羯";
     NSString *zodiacFormat = @"102123444543";
     
@@ -111,8 +95,7 @@
     return result;
 }
 
-+ (NSString *)jf_zodiacSignWithTs:(NSTimeInterval)ts
-{
++ (NSString *)jf_zodiacSignWithTs:(NSTimeInterval)ts {
     NSDate *today = [NSDate dateWithTimeIntervalSince1970:ts];
     NSCalendar *gregorian = [NSCalendar currentCalendar];
     NSDateComponents *weekdayComponents = [gregorian components:(NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:today];
@@ -123,8 +106,7 @@
 
 #pragma mark - Regular
 
-- (NSArray *)jf_subStringByRegular:(NSString *)regular
-{
+- (NSArray *)jf_subStringByRegular:(NSString *)regular {
     NSRange range = [self rangeOfString:regular options:NSRegularExpressionSearch];
     if (range.length == 0 || range.location == NSNotFound) {
         return nil;
@@ -143,8 +125,7 @@
 
 #pragma mark -
 
-- (NSInteger)jf_realLength
-{
+- (NSInteger)jf_realLength {
     __block NSInteger length = 0;
     [self enumerateSubstringsInRange:NSMakeRange(0, [self length])
                                options:NSStringEnumerationByComposedCharacterSequences
@@ -153,4 +134,43 @@
     }];
     return length;
 }
+
+- (NSString *)jf_trim
+{
+    return [self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+}
+
+- (NSString *)jf_stringByTruncatingToLength:(NSUInteger)length
+{
+    return [self jf_stringByTruncatingToLength:length ellipsis:YES];
+}
+
+- (NSString *)jf_stringByTruncatingToLength:(NSUInteger)length ellipsis:(BOOL)ellipsis
+{
+    NSString *string = [self copy];
+    if (length == 0 || string.length == 0) {
+        return @"";
+    }
+    
+    if (string.length > length) {
+        NSRange rangeIndex = [string rangeOfComposedCharacterSequencesForRange:NSMakeRange(0, length)];
+        string = [string substringWithRange:rangeIndex];
+        if (ellipsis) {
+            return [string stringByAppendingString:@"..."];
+        }
+    }
+    
+    return string;
+}
+
+- (NSString *)jf_filterXMLEscapeChar
+{
+    NSString *temp = [self stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+    temp = [temp stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+    temp = [temp stringByReplacingOccurrencesOfString:@"&apos;" withString:@"'"];
+    temp = [temp stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
+    temp = [temp stringByReplacingOccurrencesOfString:@"&amp;" withString:@"&"];
+    return temp;
+}
+
 @end

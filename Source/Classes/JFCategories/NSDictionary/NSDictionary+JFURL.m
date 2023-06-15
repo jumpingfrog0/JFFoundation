@@ -29,6 +29,7 @@
 #import "NSDictionary+JFURL.h"
 
 @implementation NSDictionary (JFURL)
+
 - (NSString *)jf_joinURLQueries
 {
     if (self.allKeys.count > 0) {
@@ -42,4 +43,25 @@
     }
     return nil;
 }
+
++ (NSDictionary *)jf_paramsForURLString:(NSString *)URLString
+{
+    NSRange questionMarkRange = [URLString rangeOfString:@"?"];
+    if (questionMarkRange.location != NSNotFound) {
+        NSString *paramsString = [URLString substringFromIndex:questionMarkRange.location + 1];
+        NSArray *paramsArray = [paramsString componentsSeparatedByString:@"&"];
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        for (NSString *paramString in paramsArray) {
+            NSArray *keyValues = [paramString componentsSeparatedByString:@"="];
+            if (keyValues.count == 2) {
+                [params setObject:[keyValues[1] stringByRemovingPercentEncoding]
+                           forKey:[keyValues[0] stringByRemovingPercentEncoding]];
+            }
+        }
+        return [params copy];
+    } else {
+        return nil;
+    }
+}
+
 @end

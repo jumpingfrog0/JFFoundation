@@ -32,7 +32,6 @@
 #import "NSString+JFEncrypt.h"
 #import "NSString+JFJSON.h"
 #import "NSString+JFURL.h"
-#import "NSString+JFEncode.h"
 #import "NSString+JFBase64.h"
 #import "NSString+JFValidate.h"
 #import "NSString+JFCompare.h"

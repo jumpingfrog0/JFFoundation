@@ -39,7 +39,8 @@
 
 - (BOOL)jf_isValidPhone;
 
-- (BOOL)jf_isValidIDCard;
+/// 校验身份证
+- (BOOL)jf_isValidIdentityCard;
 
 /**
  *  当前字符串是否只包含了参数中设置的类型，通过正则表达式匹配, 例如：1a2b3c测试，在三个开关都打开下返回 YES；111 只要 decimal 打开就为 YES； 1a2b，需要 decimal 和 letter 打开
@@ -70,6 +71,10 @@
  * @return 全是中文返回 YES，反之 NO
  */
 - (BOOL)jf_isChineseCharacter;
+
+
+/// 是否包含中文
+- (BOOL)jf_hasChineseCharacter;
 
 /**
  * 是否全是空格或换行

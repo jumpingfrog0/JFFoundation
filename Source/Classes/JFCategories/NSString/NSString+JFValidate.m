@@ -46,7 +46,7 @@
     return [emailTest evaluateWithObject:self];
 }
 
-- (BOOL)jf_isValidIDCard {
+- (BOOL)jf_isValidIdentityCard {
     if (self.length<18) {
         return NO;
     }
@@ -124,6 +124,16 @@
 
 - (BOOL)jf_isChineseCharacter {
     return [self jf_isContainDecimal:NO letter:NO chineseCharacter:YES other:nil];
+}
+
+- (BOOL)jf_hasChineseCharacter {
+    for (int i = 0; i < self.length; i++) {
+        unichar ch = [self characterAtIndex:i];
+        if (ch > 0x4e00 && ch < 0x9fff) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (BOOL)jf_isBlank {

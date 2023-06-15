@@ -1,6 +1,8 @@
 
 target 'JFFoundation_Example' do
   pod 'JFFoundation', :path => '../'
+#  pod 'JFFoundation', :git => 'https://github.com/jumpingfrog0/JFFoundation.git'
+#  pod 'JFFoundation',  :subspecs => ['JFCategories', 'Macro'], :git => 'https://github.com/jumpingfrog0/JFFoundation.git'
 
   target 'JFFoundation_Tests' do
     inherit! :search_paths

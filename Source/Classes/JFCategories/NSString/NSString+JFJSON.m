@@ -48,6 +48,39 @@
     return jsonObject;
 }
 
+- (NSDictionary *)jf_jsonStringToDictionary
+{
+    if (self.length == 0) {
+        return nil;
+    }
+    
+    NSData *jsonData = [self dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *err;
+    NSDictionary *dic = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if (err) {
+        return nil;
+    }
+    return dic;
+}
+
+- (NSArray *)jf_jsonStringToArray
+{
+    NSData *jsonData = [self dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSError *err;
+    
+    NSArray *array = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                        options:NSJSONReadingMutableContainers
+                                                          error:&err];
+    if (err || ![array isKindOfClass:[NSArray class]]) {
+        return nil;
+    }
+    
+    return array;
+}
+
 + (NSString *)jf_stringWithJSONObject:(id)object
 {
     if (!self) {

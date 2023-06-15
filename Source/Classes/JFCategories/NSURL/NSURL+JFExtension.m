@@ -30,6 +30,7 @@
 #import "NSDictionary+JF.h"
 
 @implementation NSURL (JFExtension)
+
 - (NSDictionary *)jf_parameters
 {
     NSString *parametersString = self.query;
@@ -75,4 +76,5 @@
 
     return self;
 }
+
 @end

@@ -29,5 +29,9 @@
 #import <Foundation/Foundation.h>
 
 @interface NSDictionary (JFURL)
+
 - (NSString *)jf_joinURLQueries;
+
++ (NSDictionary *)jf_paramsForURLString:(NSString *)URLString;
+
 @end

@@ -37,4 +37,33 @@
     NSComparisonResult result = [self compare:str];
     return (result != NSOrderedAscending);
 }
+
+- (NSComparisonResult)bl_compareVersion:(NSString *)version
+{
+    NSArray *version1 = [self componentsSeparatedByString:@"."];
+    NSArray *version2 = [version componentsSeparatedByString:@"."];
+    for (int i = 0; i < version1.count || i < version2.count; i++) {
+        NSInteger value1 = 0;
+        NSInteger value2 = 0;
+        if (i < version1.count) {
+            value1 = [version1[i] integerValue];
+        }
+        if (i < version2.count) {
+            value2 = [version2[i] integerValue];
+        }
+        if (value1  == value2) {
+            continue;
+        }
+        else {
+            if (value1 > value2) {
+                return NSOrderedDescending;
+            }
+            else {
+                return NSOrderedAscending;
+            }
+        }
+    }
+    return NSOrderedSame;
+}
+
 @end

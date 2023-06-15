@@ -32,4 +32,10 @@
 - (BOOL)jf_isLargerThan:(NSString *)str;
 
 - (BOOL)jf_isLargerOrEqualThan:(NSString *)str;
+
+
+/// 版本号比较
+/// - Parameter version: 版本号
+- (NSComparisonResult)bl_compareVersion:(NSString *)version;
+
 @end

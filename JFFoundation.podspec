@@ -35,9 +35,14 @@ Pod::Spec.new do |s|
   s.subspec 'Macro' do |ss|
   	ss.source_files = 'Source/Classes/Macro/*.{h,m}'
   end
+  
+  s.subspec 'JFBase' do |ss|
+      ss.source_files = 'Source/Classes/JFBase/*.{h,m}'
+  end
 
   s.subspec 'JFCategories' do |ss|
   	ss.source_files = 'Source/Classes/JFCategories/*/*.{h,m}'
+    ss.dependency 'JFFoundation/JFBase'
   end
 
 end

@@ -39,6 +39,13 @@
  */
 + (NSString *)jf_stringWithJSONObject:(id)object;
 
+/// json string 转字典
+- (NSDictionary *)bl_jsonStringToDictionary;
+
+/// json string 转数组
+
+- (NSArray *)bl_jsonStringToArray;
+
 /**
  *  将当前 字符串转换成 JSON object
  *
