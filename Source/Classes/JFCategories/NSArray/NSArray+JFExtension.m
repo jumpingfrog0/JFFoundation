@@ -29,6 +29,7 @@
 #import "NSArray+JFExtension.h"
 
 @implementation NSArray (JFExtension)
+
 - (NSArray *)jf_reversed {
     NSMutableArray *result = [NSMutableArray array];
     NSEnumerator *reversed = self.reverseObjectEnumerator;
@@ -38,4 +39,56 @@
     }
     return [result copy];
 }
+
+- (NSArray *)jf_map:(id(^)(id))map
+{
+    NSMutableArray *array = [NSMutableArray new];
+    for (id obj in self) {
+        if (map) {
+            [array addObject:map(obj)];
+        }
+    }
+    return array.copy;
+}
+
+- (NSArray *)jf_filter:(BOOL(^)(id))filter
+{
+    NSMutableArray *array = [NSMutableArray new];
+    for (id obj in self) {
+        if (filter) {
+            if (filter(obj) == YES) {
+                [array addObject:obj];
+            }
+        }
+    }
+    return array.copy;
+}
+
+- (NSString *)jf_stringWithEnum:(NSUInteger)enumVal
+{
+    if (self.count == 0) {
+        return @"";
+    }
+    
+    if (self.count > enumVal) {
+        return [self objectAtIndex:enumVal];
+    } else {
+        return [self objectAtIndex:0];
+    }
+}
+
+- (NSUInteger)jf_enumFromString:(NSString *)str
+{
+    return [self jf_enumFromString:str default:0];
+}
+
+- (NSUInteger)jf_enumFromString:(NSString *)str default:(NSUInteger)def
+{
+    NSUInteger n = [self indexOfObject:str];
+    if (n == NSNotFound) {
+        n = def;
+    }
+    return n;
+}
+
 @end

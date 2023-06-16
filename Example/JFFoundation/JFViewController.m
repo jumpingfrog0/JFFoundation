@@ -30,6 +30,8 @@
     NSString *abc = @"123456789";
     NSString *str = [abc jf_stringByTruncatingToLength:3 ellipsis:YES];
     NSLog(@"%@", str);
+    
+    [abc containsString:@"123"];
 }
 
 @end

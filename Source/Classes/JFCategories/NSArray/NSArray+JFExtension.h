@@ -29,5 +29,14 @@
 #import <Foundation/Foundation.h>
 
 @interface NSArray (JFExtension)
+
 - (NSArray *)jf_reversed;
+
+- (NSArray *)jf_map:(id(^)(id))map;
+- (NSArray *)jf_filter:(BOOL(^)(id))filter;
+
+- (NSString *)jf_stringWithEnum:(NSUInteger)enumVal;
+- (NSUInteger)jf_enumFromString:(NSString *)str;
+- (NSUInteger)jf_enumFromString:(NSString *)str default:(NSUInteger)def;
+
 @end

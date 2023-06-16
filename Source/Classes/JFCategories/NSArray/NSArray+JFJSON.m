@@ -29,20 +29,29 @@
 #import "NSArray+JFJSON.h"
 
 @implementation NSArray (JFJSON)
+
 - (NSString *)jf_JSONString
 {
-    if (!self) {
+    NSError *error = nil;
+    NSData *jsonData;
+    
+    if (![NSJSONSerialization isValidJSONObject:self]) {
         return nil;
     }
-    
-    NSError *error = nil;
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
-    
-    if (error) {
-        NSException *e = [NSException exceptionWithName:@"JSONParser Error" reason:error.localizedDescription userInfo:nil];
-        [e raise];
+
+    @try {
+        jsonData = [NSJSONSerialization dataWithJSONObject:self options:NSJSONWritingPrettyPrinted error:&error];
     }
-    
-    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    @catch (NSException *exception) {
+        return nil;
+    }
+    @finally {
+        if (error) {
+            return nil;
+        }
+
+        return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
 }
+
 @end
