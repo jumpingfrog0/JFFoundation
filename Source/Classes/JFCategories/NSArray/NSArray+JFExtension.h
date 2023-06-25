@@ -27,13 +27,31 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSArray+JFSafe.h"
 
 @interface NSArray (JFExtension)
 
-- (NSArray *)jf_reversed;
-
 - (NSArray *)jf_map:(id(^)(id))map;
-- (NSArray *)jf_filter:(BOOL(^)(id))filter;
+
+/// 返回过滤后的数组
+/// return YES 会添加到返回列表，
+/// return NO 会被过滤掉
+- (NSArray *)jf_filter:(JFFilterArrayBlock)filter;
+
+/// 遍历数组，找到符合filter的元素， 执行operation.
+/// 执行一次后，不会再遍历其它元素
+- (void)jf_applay:(void (^)(id obj))operation filter:(JFFilterArrayBlock)filter;
+
+/// 全部元素都会遍历一次，符合条件的会执行 operation.
+- (void)jf_applayAll:(void (^)(id obj))operation filter:(JFFilterArrayBlock)filter;
+
+/// 过滤重复元素，默认执行 isEqual 函数判断
+/// 列表顺序不会改变
+- (NSArray *)jf_distinctUnionArray;
+
+- (NSArray *)jf_distinctUnionArrayWithCompare:(JFCompareBlock)compareBlock;
+
+- (NSArray *)jf_reversed;
 
 - (NSString *)jf_stringWithEnum:(NSUInteger)enumVal;
 - (NSUInteger)jf_enumFromString:(NSString *)str;

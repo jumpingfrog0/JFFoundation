@@ -30,18 +30,12 @@
 
 @implementation NSArray (JFExtension)
 
-- (NSArray *)jf_reversed {
-    NSMutableArray *result = [NSMutableArray array];
-    NSEnumerator *reversed = self.reverseObjectEnumerator;
-    id obj;
-    while (obj = [reversed nextObject]) {
-        [result addObject:obj];
-    }
-    return [result copy];
-}
-
 - (NSArray *)jf_map:(id(^)(id))map
 {
+    if (!map) {
+        return self;
+    }
+    
     NSMutableArray *array = [NSMutableArray new];
     for (id obj in self) {
         if (map) {
@@ -51,17 +45,89 @@
     return array.copy;
 }
 
-- (NSArray *)jf_filter:(BOOL(^)(id))filter
+- (NSArray *)jf_filter:(JFFilterArrayBlock)filter
 {
+    if (!filter) {
+        return self;
+    }
+    
     NSMutableArray *array = [NSMutableArray new];
     for (id obj in self) {
-        if (filter) {
-            if (filter(obj) == YES) {
-                [array addObject:obj];
-            }
+        if (filter(obj)) {
+            [array addObject:obj];
         }
     }
     return array.copy;
+}
+
+- (void)jf_applay:(void (^)(id obj))operation filter:(JFFilterArrayBlock)filter
+{
+    if (!filter) {
+        return;
+    }
+    
+    for (id obj in self) {
+        if (filter(obj)) {
+            operation(obj);
+            return;
+        }
+    }
+}
+
+- (void)jf_applayAll:(void (^)(id obj))operation filter:(JFFilterArrayBlock)filter
+{
+    if (!filter) {
+        return;
+    }
+    
+    for (id obj in self) {
+        if (filter(obj)) {
+            operation(obj);
+        }
+    }
+}
+
+- (NSArray *)jf_distinctUnionArray
+{
+    NSMutableSet *set = [[NSMutableSet alloc] initWithCapacity:self.count];
+    NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:self.count];
+    
+    for (id obj in self) {
+        if (![set containsObject:obj]) {
+            [set addObject:obj];
+            [resultArray addObject:obj];
+        }
+    }
+    
+    return [NSArray arrayWithArray:resultArray];
+}
+
+- (NSArray *)jf_distinctUnionArrayWithCompare:(JFCompareBlock)compare
+{
+    if (!compare) {
+        return self;
+    }
+    
+    NSMutableArray *resultArray = [NSMutableArray arrayWithCapacity:self.count];
+
+    for (id obj in self) {
+        for (id resultObj in resultArray) {
+            if (!compare(resultObj, obj)) {
+                [resultArray addObject:obj];
+            }
+        }
+    }
+    return [NSArray arrayWithArray:resultArray];
+}
+
+- (NSArray *)jf_reversed {
+    NSMutableArray *result = [NSMutableArray array];
+    NSEnumerator *reversed = self.reverseObjectEnumerator;
+    id obj;
+    while (obj = [reversed nextObject]) {
+        [result addObject:obj];
+    }
+    return [result copy];
 }
 
 - (NSString *)jf_stringWithEnum:(NSUInteger)enumVal
