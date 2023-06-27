@@ -30,7 +30,6 @@
 #define NSData_JF_h
 
 #import "NSData+JFExtension.h"
-#import "NSData+JFBase64.h"
 #import "NSData+JFEncrypt.h"
 #import "NSData+JFJSON.h"
 
