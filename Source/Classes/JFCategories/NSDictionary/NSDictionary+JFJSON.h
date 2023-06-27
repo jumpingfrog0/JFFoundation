@@ -7,10 +7,13 @@
 #import <Foundation/Foundation.h>
 
 @interface NSDictionary (JFJSON)
-/**
- *  通过 JSON object 初始化字符串
- *
- *  @return 序列化后的 json string，转换失败返回 nil
- */
+
+/// 字典转json string
 - (NSString *)jf_JSONString;
+
+/// 字典转json string
+/// 使用空白和缩进使输出更具可读性的写入选项。输入时有\n来换行，容易阅读，但是如果与后台交互使用这样，可能会出现问题。
+/// 一般用于日志输出或可视化
+- (NSString *)jf_prettyJSONString;
+
 @end

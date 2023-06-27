@@ -30,6 +30,7 @@
 
 @interface NSDictionary (JFURL)
 
+/// 把字典数据转成字符串，类似URI的key1=value1&key2=value2
 - (NSString *)jf_joinURLQueries;
 
 + (NSDictionary *)jf_paramsForURLString:(NSString *)URLString;
