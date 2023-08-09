@@ -37,6 +37,7 @@
  */
 - (BOOL)jf_isValidEmail;
 
+/// 校验手机号
 - (BOOL)jf_isValidPhone;
 
 /// 校验身份证

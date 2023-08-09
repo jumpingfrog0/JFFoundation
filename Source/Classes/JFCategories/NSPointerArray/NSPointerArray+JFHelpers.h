@@ -1,5 +1,5 @@
 //
-//  NSPointerArray+MEAbstractionHelpers.h
+//  NSPointerArray+JFHelpers.h
 //  MEBase
 //
 //  Created by huangdonghong on 2020/5/27.
@@ -10,7 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSPointerArray (MEAbstractionHelpers)
+@interface NSPointerArray (JFHelpers)
+
 /**
  *  Adds pointer to the given object to the array.
  *
@@ -76,6 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (id)firstObject;
 
 - (id)lastObject;
+
 @end
 
 NS_ASSUME_NONNULL_END

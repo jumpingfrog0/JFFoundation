@@ -38,6 +38,9 @@
 /// return NO 会被过滤掉
 - (NSArray *)jf_filter:(JFFilterArrayBlock)filter;
 
+/// 检查是否包含对象
+- (BOOL)jf_containsObject:(id)object compare:(JFCompareBlock)compareBlock;
+
 /// 遍历数组，找到符合filter的元素， 执行operation.
 /// 执行一次后，不会再遍历其它元素
 - (void)jf_applay:(void (^)(id obj))operation filter:(JFFilterArrayBlock)filter;

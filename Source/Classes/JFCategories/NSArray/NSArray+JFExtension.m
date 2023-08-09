@@ -60,6 +60,25 @@
     return array.copy;
 }
 
+- (BOOL)jf_containsObject:(id)object compare:(JFCompareBlock)compareBlock
+{
+    if (!compareBlock) {
+        return [self containsObject:object];
+    }
+    
+    for (id obj in self) {
+        if (obj == object) {
+            return YES;
+        }
+        
+        if (compareBlock(obj, object)) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
 - (void)jf_applay:(void (^)(id obj))operation filter:(JFFilterArrayBlock)filter
 {
     if (!filter) {

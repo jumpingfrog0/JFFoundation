@@ -1,14 +1,15 @@
 //
-//  NSPointerArray+MEAbstractionHelpers.m
+//  NSPointerArray+JFHelpers.m
 //  MEBase
 //
 //  Created by huangdonghong on 2020/5/27.
 //  Copyright © 2020 developer. All rights reserved.
 //
 
-#import "NSPointerArray+MEAbstractionHelpers.h"
+#import "NSPointerArray+JFHelpers.h"
 
-@implementation NSPointerArray (MEAbstractionHelpers)
+@implementation NSPointerArray (JFHelpers)
+
 - (void)addObject:(id)anObject
 {
     [self addPointer:(__bridge void *)anObject];
@@ -155,4 +156,5 @@
     if (self.count == 0) return nil;
     return [self pointerAtIndex:self.count - 1];
 }
+
 @end
